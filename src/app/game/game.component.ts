@@ -9,7 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./game.component.scss']
 })
 export class GameComponent implements OnInit {
-  pickCardAnimation: boolean = false;
+  pickCardAnimation = false;
   currentCard: string = '';
   game: Game;
 
