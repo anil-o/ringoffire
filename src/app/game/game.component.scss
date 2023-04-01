@@ -2,7 +2,7 @@
     width: 100vw;
     height: 100vh;
     max-height: 100%;
-    background-image: url('/assets/img/board.jpg');
+    background-image: url('../../assets/img/board.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
@@ -54,6 +54,7 @@
 .player-position {
     position: absolute;
     right: 0;
+    z-index: 1;
 }
 
 .btn-add {
