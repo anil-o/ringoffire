@@ -8,6 +8,6 @@ import { Component, Input } from '@angular/core';
 export class PlayerComponent {
 
   @Input() name;
-  @Input() i: number;
+  @Input() image = '0.svg';
   @Input() playerActive: boolean = false;
 }

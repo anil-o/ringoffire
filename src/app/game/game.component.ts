@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Firestore, addDoc, collection, collectionData, doc, docData, setDoc, updateDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { EditPlayerComponent } from '../edit-player/edit-player.component';
 
 
 @Component({
@@ -53,6 +54,7 @@ export class GameComponent implements OnInit {
       console.log('gameCurrentplayer', game.currentPlayer);
       this.game.playedCards = game.playedCards;
       this.game.players = game.players;
+      this.game.player_images = game.player_images;
       this.game.stack = game.stack;
       this.game.pickCardAnimation = game.pickCardAnimation;
       this.game.currentCard = game.currentCard;
@@ -82,6 +84,24 @@ export class GameComponent implements OnInit {
     }
   }
 
+  editPlayer(playerId: number) {
+    console.log(playerId);
+
+    const dialogRef = this.dialog.open(EditPlayerComponent);
+
+    dialogRef.afterClosed().subscribe((change: string) => {
+      if (change) {
+        if(change == 'DELETE') {
+          this.game.players.splice(playerId, 1);
+          this.game.player_images.splice(playerId, 1);
+        } else {
+          this.game.player_images[playerId] = change;
+        }
+        this.saveGame();
+      }
+    });
+  }
+
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogAddPlayerComponent);
@@ -90,6 +110,7 @@ export class GameComponent implements OnInit {
       //the 'name' in the if condition checks if 'name' exists and also checks if 'name' has a length greater than zero
       if (name && name.length > 0) {
         this.game.players.push(name);
+        this.game.player_images.push('0.svg');
         this.saveGame();
       }
     });
@@ -97,8 +118,8 @@ export class GameComponent implements OnInit {
 
   saveGame() {
     let gameCollection = collection(this.firestore, 'games');
-		let docInstance = doc(gameCollection, this.gameId);
-		setDoc(docInstance, this.game.toJson());
+    let docInstance = doc(gameCollection, this.gameId);
+    setDoc(docInstance, this.game.toJson());
   }
 }
 
