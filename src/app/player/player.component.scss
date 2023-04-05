@@ -8,6 +8,9 @@
     span {
         font-size: 20px;
         margin-left: 16px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
     }
 
     background-color: rgba(50, 50, 50, 0.7);

@@ -1,12 +1,12 @@
 mat-card {
     @media (max-width: 720px) {
-        height: 180px;
+        height: 200px;
     }
 }
 
 .mat-mdc-card-content {
     @media (max-width: 720px) {
-        font-size: 14px;
+        font-size: 12px;
     }
 }
 

@@ -2,7 +2,7 @@ import { DialogAddPlayerComponent } from './../dialog-add-player/dialog-add-play
 import { Component, OnInit, inject } from '@angular/core';
 import { Game } from 'src/models/game';
 import { MatDialog } from '@angular/material/dialog';
-import { Firestore, addDoc, collection, collectionData, doc, docData, setDoc, updateDoc } from '@angular/fire/firestore';
+import { Firestore, collection, collectionData, doc, docData, setDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { EditPlayerComponent } from '../edit-player/edit-player.component';
@@ -20,6 +20,7 @@ export class GameComponent implements OnInit {
   games: Array<any>;
   gameId: string;
   gameCollection: any;
+  gameOver = false;
 
   constructor(private route: ActivatedRoute, public dialog: MatDialog) {
     //Gets the data from the Firebase. To get the data finally, they still have to be subscribed
@@ -70,11 +71,10 @@ export class GameComponent implements OnInit {
   }
 
   takeCard() {
-    if (!this.game.pickCardAnimation) {
-      this.game.currentCard = this.game.stack.pop();
-      this.game.pickCardAnimation = true;
-      this.game.currentPlayer++;
-      this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
+    if(this.game.stack.length == 0) {
+      this.gameOver = true;
+    } else if (!this.game.pickCardAnimation) {
+      this.addCardToCurrentCardAndPlayAnimation();
       this.saveGame();
       setTimeout(() => {
         this.game.playedCards.push(this.game.currentCard);
@@ -82,6 +82,13 @@ export class GameComponent implements OnInit {
         this.saveGame();
       }, 1000);
     }
+  }
+
+  addCardToCurrentCardAndPlayAnimation() {
+    this.game.currentCard = this.game.stack.pop();
+    this.game.pickCardAnimation = true;
+    this.game.currentPlayer++;
+    this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
   }
 
   editPlayer(playerId: number) {
