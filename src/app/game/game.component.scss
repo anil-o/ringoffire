@@ -15,9 +15,9 @@
 
     img {
         position: absolute;
-        width: 120px;
+        width: 90px;
 
-        @media (max-width: 1030px) {
+        @media (max-width: 1300px) {
             width: 70px;
         }
     }
@@ -34,12 +34,12 @@
 
 .played-card {
     right: 20px;
-    transform: scale(1.3) translateX(135px) translateY(-180px) rotate(-10deg);
+    transform: scale(1.3) translateX(125px) translateY(-150px) rotate(-10deg);
 }
 
 .pick-card {
     animation: pick-card-animation 1s ease-in-out;
-    transform: scale(1.3) translateX(135px) translateY(-180px) rotate(-10deg);
+    transform: scale(1.3) translateX(125px) translateY(-150px) rotate(-10deg);
 }
 
 @keyframes pick-card-animation {
@@ -56,7 +56,7 @@
     }
 
     100% {
-        transform: scale(1.3) translateX(135px) translateY(-180px) rotate(-10deg);
+        transform: scale(1.3) translateX(125px) translateY(-150px) rotate(-10deg);
     }
 }
 
@@ -69,7 +69,19 @@
 .btn-add {
     position: absolute;
     right: 32px;
-    bottom: 32px;
+    bottom: 44px;
+
+    @media (min-width: 931px) and (max-width: 1654px) {
+        bottom: 55px;
+    }
+
+    @media (min-width: 721px) and (max-width: 930px) {
+        bottom: 62px
+    }
+
+    @media (max-width: 720px) {
+        bottom: 1px;
+    }
 }
 
 .pin-bottom {
@@ -138,11 +150,4 @@ app-player-mobile {
         width: 350px;
         padding: 80px;
     }
-}
-
-.preload-image {
-    opacity: 0;
-    height: 0px;
-    width: 0px;
-    z-index: -999999999;
 }

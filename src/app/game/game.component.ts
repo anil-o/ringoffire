@@ -31,14 +31,12 @@ export class GameComponent implements OnInit {
   ngOnInit(): void {
     this.newGame();
     this.route.params.subscribe((params) => {
-      console.log(params);
       this.setGameData(params);
 
 
       //Show in the console what state our database is currently in. 
       //Is a continuation of the commands from the two lines of code from the constructor
       this.games$.subscribe((newGames) => {
-        console.log('Game update:', newGames);
         this.games = newGames;
       });
     });
@@ -48,11 +46,8 @@ export class GameComponent implements OnInit {
     this.gameId = params['id'];
     let docRef = doc(this.gameCollection, this.gameId);
     let game$ = docData(docRef);
-    console.log('game$', game$);
     game$.subscribe((game: any) => {
-      console.log('game:', game)
       this.game.currentPlayer = game.currentPlayer;
-      console.log('gameCurrentplayer', game.currentPlayer);
       this.game.playedCards = game.playedCards;
       this.game.players = game.players;
       this.game.player_images = game.player_images;
@@ -73,7 +68,7 @@ export class GameComponent implements OnInit {
   takeCard() {
     if(this.game.stack.length == 0) {
       this.gameOver = true;
-    } else if (!this.game.pickCardAnimation) {
+    } else if (!this.game.pickCardAnimation && this.game.players.length >= 1) {
       this.addCardToCurrentCardAndPlayAnimation();
       this.saveGame();
       setTimeout(() => {
@@ -81,6 +76,8 @@ export class GameComponent implements OnInit {
         this.game.pickCardAnimation = false;
         this.saveGame();
       }, 1000);
+    } else {
+      alert('Please add at least one player!');
     }
   }
 
@@ -92,8 +89,6 @@ export class GameComponent implements OnInit {
   }
 
   editPlayer(playerId: number) {
-    console.log(playerId);
-
     const dialogRef = this.dialog.open(EditPlayerComponent);
 
     dialogRef.afterClosed().subscribe((change: string) => {
