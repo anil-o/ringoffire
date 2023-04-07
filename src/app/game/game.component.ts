@@ -66,7 +66,7 @@ export class GameComponent implements OnInit {
   }
 
   takeCard() {
-    if(this.checkTheyAreMoreThanTwoPlayers()) {
+    if(this.game.players.length >= 2) {
       if(this.game.stack.length == 0) {
         this.gameOver = true;
       } else if (!this.game.pickCardAnimation) {
@@ -81,10 +81,6 @@ export class GameComponent implements OnInit {
     } else {
       alert('Please add at least two players!');
     }
-  }
-
-  checkTheyAreMoreThanTwoPlayers() {
-    return this.game.players.length >= 2;
   }
 
   addCardToCurrentCardAndPlayAnimation() {
