@@ -17,9 +17,8 @@ export class StartScreenComponent implements OnInit {
     
   }
 
-
+  //Start game
   async newGame() {
-    //Start game
     let game = new Game;
     const gameCollection = collection(this.firestore, 'games');
     let gameInfo = await addDoc(gameCollection, game.toJson());

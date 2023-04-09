@@ -54,11 +54,7 @@ export class GameComponent implements OnInit {
       this.game.stack = game.stack;
       this.game.pickCardAnimation = game.pickCardAnimation;
       this.game.currentCard = game.currentCard;
-      //this.game.player_images = game.player_images;
     });
-    // if(this.game.stack.length == 0 && this.counter == 0) {
-    //   this.counter++;
-    // }
   }
 
   newGame() {
